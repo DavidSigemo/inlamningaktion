@@ -3,6 +3,6 @@
         "./wwwroot/**/*.{html,htm,css,js}"
     ],
     "server": {
-        "baseDir" : "./wwwroot"
+        "baseDir" : "./wwwroot/app"
         }
 }

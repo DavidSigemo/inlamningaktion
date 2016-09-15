@@ -23,7 +23,9 @@
   ],
   "dependencies": {
     "angular": "^1.5.8",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "angular-route": "^1.5.8",
+    "html5-boilerplate": "^5.3.0"
   },
   "devDependencies": {
     "angular": "^1.5.8",
