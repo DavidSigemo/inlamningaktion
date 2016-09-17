@@ -19,6 +19,8 @@ app.controller('appCtrl', function($scope, $http, UserService) {
   var vm = this;
   vm.navbarSwitch = "0";
 
+  vm.currentUserName = "error";
+  vm.currentUserData = {};
   // vm.formMaster = {
   //   firstNameInput = "",
   //   lastNameInput = "",
@@ -51,7 +53,13 @@ app.controller('appCtrl', function($scope, $http, UserService) {
 
     loginPromise.then(function(response) {
 
-      vm.navbarSwitch = "1";
+      var userData = UserService.getUserById(response.id);
+      userData.then(function(userResponse) {
+        vm.navbarSwitch = "1";
+        vm.currentUserData = userResponse;
+        console.log(vm.currentUserData);
+        vm.currentUserName = vm.currentUserData.firstName + " " + vm.currentUserData.lastName;
+      });
 
     });
 
@@ -90,6 +98,14 @@ app.controller('appCtrl', function($scope, $http, UserService) {
     //       vm.navbarSwitch = "2"
     //     }
     //   });
+  }
+
+  var getUserData = function(userId) {
+    var userData = UserService.getUserById(userId);
+    userData.then(function(response) {
+      console.log(response);
+      return response.data;
+    });
   }
 
 });

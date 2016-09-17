@@ -2,7 +2,7 @@
 <html lang="en" ng-app="myApp" ng-controller="appCtrl as AC">
 
 <head>
-    <title></title>
+    <title>NAF - Nackademiska Auktionsfrämjandet</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="dist/bootstrap/dist/css/bootstrap.min.css">
@@ -13,206 +13,16 @@
 </head>
 
 <body>
-    <center>
-        <div class="page">
-            <div class="container">
-                <ng-view></ng-view>
-            </div>
-        </div>
-    </center>
-    <div ng-switch="AC.navbarSwitch">
-        <div class="navBarContainer" id="navBarNotLoggedIn" ng-switch-when="0">
-            <nav class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-                        <a class="navbar-brand" href="#">NAF</a>
-                    </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#!/view1">Show View1<span class="sr-only">(current)</span></a></li>
-                            <li><a href="#!/view2">Show View2</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" data-toggle="modal" data-target="#loginModal">Log in</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#signUpModal">Sign up</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container-fluid -->
-            </nav>
-        </div>
-        <div class="navBarContainer" id="navbarLoggedInUser" ng-switch-when="1">
-            <nav class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-                        <a class="navbar-brand" href="#">NAF</a>
-                    </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#!/view1">Show View1<span class="sr-only">(current)</span></a></li>
-                            <li><a href="#!/view2">Show View2</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <p class="navbar-text">Logged in as User</p>
-                            <li><a href="#" ng-click="AC.LogOutUser()">Log out</a></li>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container-fluid -->
-            </nav>
-        </div>
-        <div class="navBarContainer" id="navbarLoggedInAdmin" ng-switch-when="2">
-            <nav class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-                        <a class="navbar-brand" href="#">NAF</a>
-                    </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#!/view1">Show View1<span class="sr-only">(current)</span></a></li>
-                            <li><a href="#!/view2">Show View2</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <p class="navbar-text">Logged in as Admin</p>
-                            <li><a href="#" ng-click="AC.LogOutUser()">Log out</a></li>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container-fluid -->
-            </nav>
+    <div class="page">
+        <div class="container">
+            <ng-view></ng-view>
         </div>
     </div>
 
-    <div id="loginModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Log in</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Please enter your email and password.</p>
-                    <label for="emailInput" class="control-label">Email</label>
-                    <input type="email" value='' class="form-control" id="emailInput" ng-model="AC.emailInput">
-                    <br/>
-                    <label for="passwordInput" class="control-label">Password</label>
-                    <input type="password" value='' class="form-control" id="passwordInput" ng-model="AC.passWordInput">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="AC.tryLogin()">Log in</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div id="signUpModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Sign up</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Please enter your information.</p>
-                    <form>
-                        <label for="firstNameInput" class="control-label">Förnamn</label>
-                        <input type="text" value='' class="form-control" id="firstNameInput" ng-model="AC.firstNameInput">
-                        <br/>
-                        <label for="lastNameInput" class="control-label">Efternamn</label>
-                        <input type="text" value='' class="form-control" id="lastNameInput" ng-model="AC.lastNameInput">
-                        <br/>
-                        <label for="adressInput" class="control-label">Address</label>
-                        <input type="text" value='' class="form-control" id="adressInput" ng-model="AC.adressInput">
-                        <br/>
-                        <label for="postalCodeInput" class="control-label">Postkod</label>
-                        <input type="text" value='' class="form-control" id="postalCodeInput" ng-model="AC.postalCodeInput">
-                        <br/>
-                        <label for="cityInput" class="control-label">Stad</label>
-                        <input type="text" value='' class="form-control" id="cityInput" ng-model="AC.cityInput">
-                        <br/>
-                        <label for="phoneInput" class="control-label">Telefon</label>
-                        <input type="text" value='' class="form-control" id="phoneInput" ng-model="AC.phoneInput">
-                        <br/>
-                        <label for="emailInput" class="control-label">Email</label>
-                        <input type="email" value='' class="form-control" id="emailInput" ng-model="AC.emailInput">
-                        <br/>
-                        <label for="passwordInput" class="control-label">Password</label>
-                        <input type="password" value='' class="form-control" id="passwordInput" ng-model="AC.passWordInput">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="AC.createUser()">Log in</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
+    <div ng-include src="'layout/navbar.html'"></div>
+    <div ng-include src="'layout/footer.html'"></div>
+    <div ng-include src="'layout/loginModal.html'"></div>
+    <div ng-include src="'layout/signupModal.html'"></div>
 
     <script src="dist/angular/angular.js"></script>
     <script src="dist/angular-route/angular-route.js"></script>
@@ -222,7 +32,6 @@
     <script src="services/UserService.js"></script>
     <script src="view1/view1.js"></script>
     <script src="view2/view2.js"></script>
-
 </body>
 
 </html>
