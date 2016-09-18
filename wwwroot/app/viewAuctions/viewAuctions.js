@@ -9,11 +9,12 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }]);
 
-app.controller('viewAuctionsCtrl', function($scope, AuctionService) {
+app.controller('viewAuctionsCtrl', function($scope, $filter, AuctionService) {
   var vm = this;
 
   vm.allAuctions = {}
   vm.allCategories = {};
+  vm.date = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
   getCategories();
   initAuctions();
 
@@ -27,34 +28,13 @@ app.controller('viewAuctionsCtrl', function($scope, AuctionService) {
   function initAuctions() {
     var getAllAuctionData = AuctionService.getAll();
     getAllAuctionData.then(function(response) {
-      vm.allAuctions = response;
-    });
-  }
-
-
-
-});
-
-
-function parseDate(input) {
-  var parts = input.split('-');
-  return new Date(parts[2], parts[1] - 1, parts[0]);
-}
-
-app.filter('dateRange', function() {
-  return function(items, endDate) {
-    var retArray = [];
-    if (!endDate) {
-      return items;
-    }
-
-    angular.forEach(items, function(obj) {
-      var receivedDate = obj.date;
-      if (moment(receivedDate).isAfter(endDate)) {
-        retArray.push(obj);
+      var tempData = {};
+      for(var index in response){
+        if (response[index].endTime > vm.date){
+          tempData[index] = response[index];
+        }
       }
+      vm.allAuctions = tempData;
     });
-
-    return retArray;
   }
 });
