@@ -3,19 +3,20 @@
 // Declare app level module which depends on views, and components
 var app = angular.module('myApp', [
   'ngRoute',
-  'myApp.view1',
-  'myApp.view2'
+  'myApp.viewAuctions',
+  'myApp.viewSuppliers',
+  'myApp.viewAuctionDetails'
 ]);
 
 app.config(function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
   $routeProvider.otherwise({
-    redirectTo: '/view1'
+    redirectTo: '/viewAuctions'
   });
 });
 
-app.controller('appCtrl', function($scope, $http, UserService) {
+app.controller('appCtrl', function($scope, $http, UserService, AuctionService) {
   var vm = this;
   vm.navbarSwitch = "0";
 

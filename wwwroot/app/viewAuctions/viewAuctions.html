@@ -1,0 +1,53 @@
+<link rel="stylesheet" type="text/css" href="viewAuctions/viewAuctions.css">
+<div ng-app="myApp.viewAuctions" ng-controller="viewAuctionsCtrl as AC" class="pageContent">
+    <div class="auctionFilters">
+        <div class="col-md-3">
+            <label>
+            Filtrera auktioner
+            <input type="text" name="filterText" id="filterText" ng-model="filterText" class="form-control" title="filterText" placeholder="Sök..">
+            </label>
+        </div>
+        <div class="col-md-3">
+            <label>
+            Kategori <br/>
+            
+            <select name="" id="filterCategory" ng-model="filterCategory" class="form-control">
+                <option value="">-- Välj kategori --</option>
+                <option ng-repeat="category in AC.allCategories" ng-value="{{category.id}}">{{category.name}}</option>
+            </select>
+
+            </label>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered table-responsive" id="allAuctionTable">
+        <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                <th>Bild</th>
+                <th>Namn</th>
+                <th>Beskrivning</th>
+                <th>Skapad</th>
+                <th>Tar slut</th>
+                <th>Utköpspris</th>
+                <th>Detaljer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="auction in AC.allAuctions | toArray | filter:{sold:false,name:filterText, categoryId:filterCategory}">
+                <td>{{auction.id}}</td>
+                <td><img class="img img-responsive" style="height: 100px; width: 100px;" ng-src="{{auction.imageUrl}}" /></td>
+                <td>{{auction.name}}</td>
+                <td>{{auction.description}}</td>
+                <td>{{auction.startTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                <td>{{auction.endTime | date:'yyyy-MM-dd HH:mm' | filter:dateRange}}</td>
+                <td>{{auction.buyNowPrice | currency}}</td>
+                <td>
+                    <center>
+                        <a href="#!/viewAuctionDetails/{{auction.id}}"><button type="button" class="btn btn-default">Visa</button></a>
+                    </center>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
