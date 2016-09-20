@@ -1,33 +1,29 @@
-#allAuctionTable tr th:nth-child(1){
+#allSupplierTable tr th:nth-child(1){
     text-align: center;
 }
 
-#allAuctionTable tr td:nth-child(1){
+#allSupplierTable tr td:nth-child(1){
     width:5%;
     text-align: center;
     vertical-align: middle;
 }
 
-#allAuctionTable tr td:nth-child(2){
+#allSupplierTable tr td:nth-child(2){
     width:10%;
 }
 
-#allAuctionTable tr td:last-child{
+#allSupplierTable tr td:last-child{
     vertical-align: middle;
 }
 
-#allAuctionTable {
+#allSupplierTable {
     background-color: #eeeeee;
     overflow: auto;
     text-align: center;
 }
 
-#allAuctionTable, #allAuctionTable th, #allAuctionTable td {
+#allSupplierTable, #allSupplierTable th, #allSupplierTable td {
     border-color: #c6c6c6;
-}
-
-#filterCategory {
-    width: 160px;
 }
 
 .pageContent{

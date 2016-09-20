@@ -1,7 +1,44 @@
-<div>
-    <h1>This is happening in view2</h1>
-    <p>AsdfAsdfAsdf</p>
-    <p>AsdfAsdf</p>
-    <p>AsdfAsdfAsdfAsdf</p>
-    <p>AsdfAsdf</p>
+<link rel="stylesheet" type="text/css" href="viewSuppliers/viewSuppliers.css">
+<div ng-app="myApp.viewSuppliers" ng-controller="viewSuppliersCtrl as SC" class="pageContent">
+    <div class="supplierFilters">
+        <div class="col-md-3">
+            <label>
+            Sök efter leverantörer
+            <input type="text" name="filterText" id="filterText" ng-model="filterText" class="form-control" title="filterText" placeholder="Sök..">
+            </label>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered table-responsive" id="allSupplierTable">
+        <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                <th>Namn</th>
+                <th>Adress</th>
+                <th>Postkod</th>
+                <th>Stad</th>
+                <th>Telefon</th>
+                <th>Email</th>
+                <th>Kommission</th>
+                <th>Detaljer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="supplier in SC.allSuppliers | toArray | filter:{name:filterText}">
+                <td>{{supplier.id}}</td>
+                <td>{{supplier.name}}</td>
+                <td>{{supplier.address}}</td>
+                <td>{{supplier.postalCode}}</td>
+                <td>{{supplier.city}}</td>
+                <td>{{supplier.phone}}</td>
+                <td>{{supplier.email}}</td>
+                <td>{{(supplier.commission * 100) + "%"}}</td>
+                <td>
+                    <center>
+                        <a href="#!/viewSupplierDetails/{{supplier.id}}"><button type="button" class="btn btn-default">Visa</button></a>
+                    </center>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
 </div>

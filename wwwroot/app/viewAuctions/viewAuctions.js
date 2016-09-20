@@ -15,7 +15,7 @@ app.controller('viewAuctionsCtrl', function($scope, $filter, AuctionService) {
   vm.allAuctions = {}
   vm.allCategories = {};
   vm.date = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
-  getCategories();
+  //getCategories();
   initAuctions();
 
   function getCategories() {
