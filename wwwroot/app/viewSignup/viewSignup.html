@@ -1,0 +1,62 @@
+<link rel="stylesheet" type="text/css" href="viewSignup/viewSignup.css">
+<div class="pageContent" ng-app="myApp.viewSignup" ng-controller="viewSignupCtrl as SC">
+    <form name="signUpForm" novalidate ng-submit="SC.createUser()">
+        <h3 class="requiredMargin">Var god skriv in dina uppgifter.</h3>
+        <div class="col-md-6">
+            <div ng-class="{'has-error':signUpForm.firstNameInput.$error.required && signUpForm.firstNameInput.$touched}">
+                <label for="firstNameInput" class="control-label">Förnamn</label>
+                <input type="text" value='' class="form-control" id="firstNameInput" name="firstNameInput" required ng-model="SC.newUser.firstNameInput">
+                <span class="control-label" ng-show="signUpForm.firstNameInput.$error.required && signUpForm.firstNameInput.$touched">Fält saknas!</span>
+            </div>
+            <br/>
+            <div ng-class="{ 'has-error':signUpForm.lastNameInput.$error.required && signUpForm.lastNameInput.$touched}">
+                <label for="lastNameInput " class="control-label ">Efternamn</label>
+                <input type="text " value='' class="form-control " id="lastNameInput " name="lastNameInput " required ng-model="SC.newUser.lastNameInput">
+                <span class="control-label " ng-show="signUpForm.lastNameInput.$error.required && signUpForm.lastNameInput.$touched">Fält saknas!</span>
+            </div>
+            <br/>
+            <div ng-class="{ 'has-error':signUpForm.adressInput.$error.required && signUpForm.adressInput.$touched}">
+                <label for="adressInput " class="control-label ">Address</label>
+                <input type="text " value='' class="form-control " id="adressInput " name="adressInput" required ng-model="SC.newUser.adressInput">
+                <span class="control-label " ng-show="signUpForm.adressInput.$error.required && signUpForm.adressInput.$touched">Fält saknas!</span>
+            </div>
+            <br/>
+            <div ng-class="{ 'has-error':signUpForm.postalCodeInput.$error.required && signUpForm.postalCodeInput.$touched}">
+                <label for="postalCodeInput " class="control-label ">Postkod</label>
+                <input type="text " value='' class="form-control " id="postalCodeInput " name="postalCodeInput " required ng-model="SC.newUser.postalCodeInput">
+                <span class="control-label " ng-show="signUpForm.postalCodeInput.$error.required && signUpForm.postalCodeInput.$touched">Fält saknas!</span>
+            </div>
+            <br/>
+        </div>
+        <div class="col-md-6">
+            <div ng-class="{ 'has-error':signUpForm.cityInput.$error.required && signUpForm.cityInput.$touched}">
+                <label for="cityInput " class="control-label ">Stad</label>
+                <input type="text " value='' class="form-control " id="cityInput " name="cityInput " required ng-model="SC.newUser.cityInput">
+                <span class="control-label " ng-show="signUpForm.cityInput.$error.required && signUpForm.cityInput.$touched">Fält saknas!</span>
+            </div>
+            <br/>
+            <div ng-class="{ 'has-error':signUpForm.phoneInput.$error.required && signUpForm.phoneInput.$touched}">
+                <label for="phoneInput " class="control-label ">Telefon</label>
+                <input type="text " value='' class="form-control " id="phoneInput " name="phoneInput " required ng-model="SC.newUser.phoneInput">
+                <span class="control-label " ng-show="signUpForm.phoneInput.$error.required && signUpForm.phoneInput.$touched">Fält saknas!</span>
+            </div>
+            <br/>
+            <div ng-class="{ 'has-error':signUpForm.emailInput.$error.required && signUpForm.emailInput.$touched}">
+                <label for="emailInput " class="control-label ">Email</label>
+                <input type="email " value='' class="form-control " id="emailInput " name="emailInput " required ng-model="SC.newUser.emailInput">
+                <span class="control-label " ng-show="signUpForm.emailInput.$error.required && signUpForm.emailInput.$touched">Fält saknas!</span>
+                <br ng-show="signUpForm.emailInput.$error.required && signUpForm.emailInput.$touched" />
+                <span class="control-label " ng-show="signUpForm.emailInput.$error.required && signUpForm.emailInput.$touched">Felaktigt emailformat!</span>
+            </div>
+            <br/>
+            <div ng-class="{ 'has-error':signUpForm.passwordInput.$error.required && signUpForm.passwordInput.$touched}">
+                <label for="passwordInput " class="control-label ">Password</label>
+                <input type="password " value='' class="form-control " id="passwordInput " name="passwordInput " required ng-model="SC.newUser.passWordInput">
+                <span class="control-label " ng-show="signUpForm.passwordInput.$error.required && signUpForm.passwordInput.$touched">Fält saknas!</span>
+            </div>
+        </div>
+        <div class="requiredMargin pull-right">
+            <button type="submit" class="btn btn-primary" ng-disabled="signUpForm.$untouched || signUpForm.$invalid">Skapa</button>
+        </div>
+    </form>
+</div>
