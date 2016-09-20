@@ -1,4 +1,19 @@
 <div class="pageContent" ng-app="myApp.viewAuctionDetails" ng-controller="viewAuctionDetailsCtrl as AD">
-    <h1>Auction details {{AD.auctionId}}
-    </h1>
+    <div id="auctionTile">
+        <div class="col-md-6">
+            <img style="width: 400px; height: 400px;" class="img img-responsive" ng-src="{{AD.auctionDetails.imageUrl}}">
+            <p>Leverantör: <a href="#!/viewSupplierDetails/{{AD.supplierDetails.id}}">{{AD.supplierDetails.name}}</a></p>
+            </div>
+        <div class="col-md-6">
+            <h2>{{AD.auctionDetails.name}}</h2>
+            <h4 style="word-wrap: break-word;">{{(AD.auctionDetails.description.length < 100) ? AD.auctionDetails.description : AD.auctionDetails.description.substring(0,99) + ".."}}</h4>
+            <hr>
+            <h4>Auktionen startade:</h4>
+            <h3>{{AD.auctionDetails.startTime | date:'yyyy-MM-dd HH:mm'}}</h3>
+            <h4>Auktionen slutar:</h4>
+            <h3>{{AD.auctionDetails.endTime | date:'yyyy-MM-dd HH:mm'}}</h3>
+            <hr>
+
+        </div>
+    </div>
 </div>

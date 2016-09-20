@@ -21,7 +21,15 @@ app.factory('AuctionService', function($http) {
         getAllCategories: function() {
             var url = "http://nackademiska.azurewebsites.net/api/category";
             return $http.get(url)
-                .then(function(response){
+                .then(function(response) {
+                    return response.data;
+                });
+        },
+
+        getBids: function(auctionId) {
+            var url = "http://nackademiska.azurewebsites.net/api/bid/".concat(auctionId);
+            return $http.get(url)
+                .then(function(response) {
                     return response.data;
                 });
         }
