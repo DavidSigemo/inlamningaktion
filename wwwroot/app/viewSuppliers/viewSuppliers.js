@@ -21,7 +21,6 @@ app.controller('viewSuppliersCtrl', function(SupplierService) {
     getAllSupplierData.then(function(response) {
 
       vm.allSuppliers = response;
-      console.log(response);
     });
   }
 })

@@ -1,4 +1,19 @@
+<link rel="stylesheet" type="text/css" href="viewSupplierDetails/viewSupplierDetails.css">
 <div ng-app="myApp.viewSupplierDetails" ng-controller="viewSupplierDetailsCtrl as SD" class="pageContent">
-    <p>{{SD.supplierId}}</p>
-    <p>{{SD.supplierData.name}}</p>
+    <div id="supplierTile">
+        <div class="col-md-4"></div>
+        <div id="supplierContent" class="col-md-4">
+            <h2>{{SD.supplierData.name}}</h2>
+            <h4>Kommission: {{SD.supplierData.commission * 100}}%</h4>
+            <hr>
+            <h4>{{SD.supplierData.address}}</h4>
+            <h4>{{SD.supplierData.postalCode}}</h4>
+            <h4>{{SD.supplierData.city}}</h4>
+            <hr>
+            <h4>{{SD.supplierData.phone}}</h4>
+            <h4>{{SD.supplierData.email}}</h4>
+            <hr>
+        </div>
+
+    </div>
 </div>

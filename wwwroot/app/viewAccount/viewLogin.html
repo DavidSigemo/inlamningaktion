@@ -1,0 +1,24 @@
+<link rel="stylesheet" type="text/css" href="viewAccount/viewAccount.css">
+<div class="pageContent" ng-app="myApp.viewAccount" ng-controller="viewAccountCtrl as SC">
+    <form name="loginForm" novalidate ng-submit="SC.login()">
+        <div class="centerDiv">
+            <h3 class="requiredMargin">Var god skriv in dina uppgifter.</h3>
+            <div ng-class="{'has-error':loginForm.emailInput.$error.required && loginForm.emailInput.$touched}">
+                <label for="emailInput" class="control-label ">Email</label>
+                <input type="email" value='' class="form-control" id="emailInput" name="emailInput" required ng-model="SC.loginUser.emailInput">
+                <span class="control-label " ng-show="loginForm.emailInput.$error.required && loginForm.emailInput.$touched">Fält saknas!</span>
+                <br ng-show="loginForm.emailInput.$error.required && loginForm.emailInput.$touched" />
+                <span class="control-label " ng-show="loginForm.emailInput.$error.required && loginForm.emailInput.$touched">Felaktigt emailformat!</span>
+            </div>
+            <br/>
+            <div ng-class="{'has-error':loginForm.passwordInput.$error.required && loginForm.passwordInput.$touched}">
+                <label for="passwordInput " class="control-label ">Password</label>
+                <input type="password" value='' class="form-control" id="passwordInput" name="passwordInput" required ng-model="SC.loginUser.passWordInput">
+                <span class="control-label" ng-show="loginForm.passwordInput.$error.required && loginForm.passwordInput.$touched">Fält saknas!</span>
+            </div>
+            <div class="requiredMargin pull-right">
+                <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$untouched || loginForm.$invalid">Logga in</button>
+            </div>
+        </div>
+    </form>
+</div>

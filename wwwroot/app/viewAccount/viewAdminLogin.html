@@ -1,0 +1,24 @@
+<link rel="stylesheet" type="text/css" href="viewAccount/viewAccount.css">
+<div class="pageContent" ng-app="myApp.viewAccount" ng-controller="viewAccountCtrl as AC">
+    <form name="loginAdminForm" novalidate ng-submit="AC.loginAdmin()">
+        <div class="centerDiv">
+            <h3 class="requiredMargin">Var god skriv in dina uppgifter.</h3>
+            <div ng-class="{'has-error':loginAdminForm.emailInput.$error.required && loginAdminForm.emailInput.$touched}">
+                <label for="emailInput" class="control-label ">Email</label>
+                <input type="email" value='' class="form-control" id="emailInput" name="emailInput" required ng-model="AC.loginAdmin.emailInput">
+                <span class="control-label " ng-show="loginAdminForm.emailInput.$error.required && loginAdminForm.emailInput.$touched">Fält saknas!</span>
+                <br ng-show="loginAdminForm.emailInput.$error.required && loginAdminForm.emailInput.$touched" />
+                <span class="control-label " ng-show="loginAdminForm.emailInput.$error.required && loginAdminForm.emailInput.$touched">Felaktigt emailformat!</span>
+            </div>
+            <br/>
+            <div ng-class="{'has-error':loginAdminForm.passwordInput.$error.required && loginAdminForm.passwordInput.$touched}">
+                <label for="passwordInput " class="control-label ">Password</label>
+                <input type="password" value='' class="form-control" id="passwordInput" name="passwordInput" required ng-model="AC.loginAdmin.passWordInput">
+                <span class="control-label" ng-show="loginAdminForm.passwordInput.$error.required && loginAdminForm.passwordInput.$touched">Fält saknas!</span>
+            </div>
+            <div class="requiredMargin pull-right">
+                <button type="submit" class="btn btn-primary" ng-disabled="loginAdminForm.$untouched || loginAdminForm.$invalid">Logga in</button>
+            </div>
+        </div>
+    </form>
+</div>

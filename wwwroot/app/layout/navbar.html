@@ -22,9 +22,9 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Konto <span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Konto <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" data-toggle="modal" data-target="#loginModal">Log in</a></li>
+                                <li><a href="#!/viewLogin">Log in</a></li>
                                 <li><a href="#!/viewSignup">Sign up</a></li>
                             </ul>
                         </li>
@@ -56,8 +56,9 @@
                         <li><a href="#!/viewSuppliers">Leverantörer</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <p class="navbar-text">Logged in as {{AC.currentUserName}}</p>
-                        <li><a href="#" ng-click="AC.LogOutUser()">Log out</a></li>
+                        <p class="navbar-text">Logged in as {{currentUser.firstName}}</p>
+                        <li><a href="#" ng-click="logout()">Log out</a></li>
+                        <!-- logout is located in viewAccount.js -->
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -86,8 +87,8 @@
                         <li><a href="#!/viewSuppliers">Leverantörer</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <p class="navbar-text">Logged in as {{AC.currentUserName}}</p>
-                        <li><a href="#" ng-click="AC.LogOutUser()">Log out</a></li>
+                        <p class="navbar-text">Logged in as {{currentUser.firstName}}</p>
+                        <li><a href="#" ng-click="logout()">Log out</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
