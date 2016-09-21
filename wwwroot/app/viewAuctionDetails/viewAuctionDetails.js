@@ -5,8 +5,8 @@
 
   app.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/viewAuctionDetails/:id', {
-      templateUrl: 'viewAuctionDetails/viewAuctionDetails.html',
-      controller: 'viewAuctionDetailsCtrl'
+      templateUrl: 'viewAuctionDetails/viewAuctionDetails.html'//,
+      //controller: 'viewAuctionDetailsCtrl'
     });
   }]);
 
@@ -17,9 +17,10 @@
     vm.auctionBids = {};
     vm.supplierId;
     vm.supplierDetails = {};
-
+    vm.highestBid;
 
     (function() {
+      console.log("min funktion");
       var GetAuctionDetailsData = AuctionService.getById(vm.auctionId);
       GetAuctionDetailsData.then(function(response) {
         vm.auctionDetails = response;
@@ -29,16 +30,19 @@
         var GetSupplierDetailsData = SupplierService.getById(supplierId);
         GetSupplierDetailsData.then(function(response) {
           vm.supplierDetails = response;
-          console.log(response);
         })
       })
       GetAuctionDetailsData.then(function(response) {
       var GetAuctionBidsData = AuctionService.getBids(vm.auctionId);
       GetAuctionBidsData.then(function(response) {
           vm.auctionBids = response;
+          console.log(vm.auctionBids);
+          
+          vm.highestBid = Math.max.apply(Math,response.map(function(o){return o.bidPrice;}));
+
         })
-        //console.log(response.supplierId);
       })
+
     })();
   });
 })();

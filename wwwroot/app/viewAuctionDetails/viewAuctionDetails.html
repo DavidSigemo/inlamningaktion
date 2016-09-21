@@ -1,19 +1,54 @@
+<link rel="stylesheet" type="text/css" href="viewAuctionDetails/viewAuctionDetails.css">
 <div class="pageContent" ng-app="myApp.viewAuctionDetails" ng-controller="viewAuctionDetailsCtrl as AD">
     <div id="auctionTile">
         <div class="col-md-6">
             <img style="width: 400px; height: 400px;" class="img img-responsive" ng-src="{{AD.auctionDetails.imageUrl}}">
             <p>Leverantör: <a href="#!/viewSupplierDetails/{{AD.supplierDetails.id}}">{{AD.supplierDetails.name}}</a></p>
-            </div>
+        </div>
         <div class="col-md-6">
             <h2>{{AD.auctionDetails.name}}</h2>
-            <h4 style="word-wrap: break-word;">{{(AD.auctionDetails.description.length < 100) ? AD.auctionDetails.description : AD.auctionDetails.description.substring(0,99) + ".."}}</h4>
-            <hr>
-            <h4>Auktionen startade:</h4>
-            <h3>{{AD.auctionDetails.startTime | date:'yyyy-MM-dd HH:mm'}}</h3>
-            <h4>Auktionen slutar:</h4>
-            <h3>{{AD.auctionDetails.endTime | date:'yyyy-MM-dd HH:mm'}}</h3>
-            <hr>
-
+            <h4 style="word-wrap: break-word;">{{(AD.auctionDetails.description.length
+                < 100) ? AD.auctionDetails.description : AD.auctionDetails.description.substring(0,99) + ".."}}</h4>
+                    <hr>
+                    <h4>Auktionen startade:</h4>
+                    <h3>{{AD.auctionDetails.startTime | date:'yyyy-MM-dd HH:mm'}}</h3>
+                    <h4>Auktionen slutar:</h4>
+                    <h3>{{AD.auctionDetails.endTime | date:'yyyy-MM-dd HH:mm'}}</h3>
+                    <hr>
+                    <div class="buttonContainer">
+                        <h3>Högsta bud: {{AD.auctionBids.length > 0 ? AD.highestBid : "0" | currency}}</h3>
+                        <button type="button" class="btn btn-primary auctionButton">Köp direkt</button>
+                        <button type="button" class="btn btn-default auctionButton">Lägg bud</button>
+                        <span> - </span>
+                        <button type="button" class="btn btn-default auctionButton" data-toggle="modal" data-target="#bidHistoryModal">Visa budhistorik</button>
+                    </div>
         </div>
     </div>
+    <div id="bidHistoryModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Senaste 10 buden</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <th>Datum</th>
+                        <th>Bud</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="bid in AD.auctionBids | toArray | orderBy:'dateTime':true | limitTo:'10'">
+                            <td>{{bid.dateTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                            <td>{{bid.bidPrice | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
