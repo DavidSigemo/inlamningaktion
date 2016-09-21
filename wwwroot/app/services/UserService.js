@@ -21,7 +21,7 @@ app.factory('UserService', function($http, $rootScope, $location) {
             return $http.post(url, JSON.stringify(userData))
                 .then(function(response) {
                     if (response.status === 200) {
-                        $rootScope.currentUserId = response.data;
+                        $rootScope.currentUserId = response.data.id;
                         $rootScope.navbarSwitch = "1";
                         $rootScope.userIsAdmin = false;
                         return response.data;
@@ -36,7 +36,7 @@ app.factory('UserService', function($http, $rootScope, $location) {
                 .then(function(response) {
                     console.log(response);
                     if (response.status === 200) {
-                        $rootScope.currentUserId = response.data;
+                        $rootScope.currentUserId = response.data.id;
                         $rootScope.navbarSwitch = "2"
                         $rootScope.userIsAdmin = true;
                         return response.data;
@@ -59,6 +59,7 @@ app.factory('UserService', function($http, $rootScope, $location) {
             var url = "http://nackademiska.azurewebsites.net/api/customer";
             return $http.post(url, JSON.stringify(userData))
                 .then(function(response) {
+                    console.log(response);
                     return response;
                 });
         }

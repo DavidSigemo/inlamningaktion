@@ -32,6 +32,23 @@ app.factory('AuctionService', function($http) {
                 .then(function(response) {
                     return response.data;
                 });
+        },
+
+        newBid: function(bidData) {
+            console.log(bidData);
+            var url = "http://nackademiska.azurewebsites.net/api/bid";
+            return $http.post(url, JSON.stringify(bidData))
+            .then(function(response){
+                return response;
+            });
+        },
+
+        buyOutAuction: function(buyData) {
+            var url = "http://nackademiska.azurewebsites.net/api/auction/buynow";
+            return $http.post(url, JSON.stringify(buyData))
+            .then(function(response){
+                return response;
+            });
         }
     }
 });

@@ -5,8 +5,8 @@ var app = angular.module('myApp.viewAdminPanel', ['ngRoute'])
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/viewAdminPanel/', {
-    templateUrl: 'viewAdminPanel/viewAdminPanel.html',
-    controller: 'viewAdminPanelCtrl'
+    templateUrl: 'viewAdminPanel/viewAdminPanel.html'//,
+    //controller: 'viewAdminPanelCtrl'
   });
 }]);
 

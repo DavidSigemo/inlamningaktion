@@ -1,57 +1,30 @@
 <link rel="stylesheet" type="text/css" href="viewAuctionDetails/viewAuctionDetails.css">
 <div class="pageContent" ng-app="myApp.viewAuctionDetails" ng-controller="viewAuctionDetailsCtrl as AD">
-    <div id="auctionTile">
-        <div class="col-md-6">
-            <img style="width: 400px; height: 400px;" class="img img-responsive" ng-src="{{AD.auctionDetails.imageUrl}}">
-            <p>Leverantör: <a href="#!/viewSupplierDetails/{{AD.supplierDetails.id}}">{{AD.supplierDetails.name}}</a></p>
-        </div>
-        <div class="col-md-6">
-            <h2>{{AD.auctionDetails.name}}</h2>
-            <h4 style="word-wrap: break-word;">{{(AD.auctionDetails.description.length
-                < 100) ? AD.auctionDetails.description : AD.auctionDetails.description.substring(0,99) + ".."}}</h4>
-                    <hr>
-                    <div class="buttonContainer">
-                        <h3>Högsta bud: {{AD.auctionBids.length > 0 ? AD.highestBid : "0" | currency}}</h3>
-                        <button type="button" class="btn btn-primary auctionButton" ng-click="AD.buyAction()">Köp direkt</button>
-                        <a href="#!/viewAuctionBid">
-                            <button type="button" class="btn btn-default auctionButton">Lägg bud</button>
-
-                        </a> <span> - </span>
-                        <button type="button" class="btn btn-default auctionButton" data-toggle="modal" data-target="#bidHistoryModal">Visa budhistorik</button>
-                    </div>
-                    <hr>
-                    <h4>Auktionen startade:</h4>
-                    <h3>{{AD.auctionDetails.startTime | date:'yyyy-MM-dd HH:mm'}}</h3>
-                    <h4>Auktionen slutar:</h4>
-                    <h3>{{AD.auctionDetails.endTime | date:'yyyy-MM-dd HH:mm'}}</h3>
-        </div>
-    </div>
-    <div id="bidHistoryModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Senaste {{AD.auctionBids.length
-                        < 10 ? AD.auctionBids.length : 10}} buden</h4>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <th>Datum</th>
-                            <th>Bud</th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="bid in AD.auctionBids | toArray | orderBy:'dateTime':true | limitTo:'10'">
-                                <td>{{bid.dateTime | date:'yyyy-MM-dd HH:mm'}}</td>
-                                <td>{{bid.bidPrice | currency}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
-                </div>
+    <div class="bidFormContainer">
+        <h3>Lägg ett nytt bud</h3>
+        <form name="bidForm" ng-submit="AD.submitBid()">
+            <div class="col-md-4 bidInputContainer" ng-class="{ 'has-error':(bidForm.bidAmountInput.$error.required || (AD.bidAmountInput < AD.highestBid)) && bidForm.bidAmountInput.$touched}">
+                <label for="bidAmountInput" id="bidAmountInputLabel" class="control-label ">Ditt bud</label>
+                <input type="number" ng-value="AD.highestBid > 0  ? AD.highestBid + 100 : 100"  class="form-control " id="bidAmountInput" name="bidAmountInput " required ng-model="AD.bidAmountInput">
+                <button type="submit" id="submitBidButton" class="btn btn-primary" ng-disabled="(bidForm.bidAmountInput.$error.required && bidForm.bidAmountInput.$touched) || (AD.bidAmountInput < AD.highestBid)">Lägg bud</button>
+                <br>
+                <span class="control-label " ng-show="bidForm.bidAmountInput.$error.required && bidForm.bidAmountInput.$touched">Du måste ange ett värde!</span>
+                <span class="control-label " ng-show="(AD.bidAmountInput < AD.highestBid) && bidForm.bidAmountInput.$touched">Ditt bud måste vara högre än det tidigare högsta budet!</span>
             </div>
-        </div>
+        </form>
+    </div>
+    <div class="bidHistoryContainer">
+        <table name="bidHistoryTable" class="table table-striped table-bordered table-responsive">
+            <thead>
+                <th>Datum</th>
+                <th>Bud</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="bid in AD.auctionBids | toArray | orderBy:'dateTime':true | limitTo:'10'">
+                    <td>{{bid.dateTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                    <td>{{bid.bidPrice | currency}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

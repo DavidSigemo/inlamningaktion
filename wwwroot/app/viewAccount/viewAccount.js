@@ -4,16 +4,16 @@ var app = angular.module('myApp.viewAccount', ['ngRoute'])
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/viewSignup/', {
-            templateUrl: 'viewAccount/viewSignup.html',
-            controller: 'viewAccountCtrl'
+            templateUrl: 'viewAccount/viewSignup.html'//,
+           //controller: 'viewAccountCtrl'
         })
         .when('/viewLogin/', {
-            templateUrl: 'viewAccount/viewLogin.html',
-            controller: 'viewAccountCtrl'
+            templateUrl: 'viewAccount/viewLogin.html'//,
+            //controller: 'viewAccountCtrl'
         })
         .when('/viewAdminLogin/', {
-            templateUrl: 'viewAccount/viewAdminLogin.html',
-            controller: 'viewAccountCtrl'
+            templateUrl: 'viewAccount/viewAdminLogin.html'//,
+            //controller: 'viewAccountCtrl'
         });
 }]);
 

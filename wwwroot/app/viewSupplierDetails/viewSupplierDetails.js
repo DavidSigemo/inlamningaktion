@@ -5,8 +5,8 @@ var app = angular.module('myApp.viewSupplierDetails', ['ngRoute'])
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/viewSupplierDetails/:supplierId', {
-    templateUrl: 'viewSupplierDetails/viewSupplierDetails.html',
-    controller: 'viewSupplierDetailsCtrl'
+    templateUrl: 'viewSupplierDetails/viewSupplierDetails.html'//,
+    //controller: 'viewSupplierDetailsCtrl'
   });
 }]);
 

@@ -13,7 +13,7 @@
                     <div class="buttonContainer">
                         <h3>Högsta bud: {{AD.auctionBids.length > 0 ? AD.highestBid : "0" | currency}}</h3>
                         <button type="button" class="btn btn-primary auctionButton" ng-click="AD.buyAction()">Köp direkt</button>
-                        <a href="#!/viewAuctionBid">
+                        <a href="#!/viewAuctionBid/{{AD.auctionId}}">
                             <button type="button" class="btn btn-default auctionButton">Lägg bud</button>
 
                         </a> <span> - </span>
