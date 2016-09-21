@@ -7,6 +7,9 @@
     $routeProvider.when('/viewAuctionDetails/:id', {
       templateUrl: 'viewAuctionDetails/viewAuctionDetails.html'//,
       //controller: 'viewAuctionDetailsCtrl'
+    })
+    .when('/viewAuctionBid', {
+      templateUrl: 'viewAuctionDetails/viewAuctionBid.html'
     });
   }]);
 
@@ -20,7 +23,6 @@
     vm.highestBid;
 
     (function() {
-      console.log("min funktion");
       var GetAuctionDetailsData = AuctionService.getById(vm.auctionId);
       GetAuctionDetailsData.then(function(response) {
         vm.auctionDetails = response;
@@ -36,8 +38,7 @@
       var GetAuctionBidsData = AuctionService.getBids(vm.auctionId);
       GetAuctionBidsData.then(function(response) {
           vm.auctionBids = response;
-          console.log(vm.auctionBids);
-          
+
           vm.highestBid = Math.max.apply(Math,response.map(function(o){return o.bidPrice;}));
 
         })
