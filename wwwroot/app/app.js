@@ -19,7 +19,7 @@ app.config(function($locationProvider, $routeProvider) {
   });
 });
 
-app.controller('appCtrl', function($rootScope, $scope, $http, UserService) {
+app.controller('appCtrl', function($rootScope, $scope, UserService) {
   var vm = this;
 
   
