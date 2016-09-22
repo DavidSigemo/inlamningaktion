@@ -10,14 +10,44 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }]);
 
-app.controller('viewAdminPanelCtrl', function($routeParams, $location, $rootScope, UserService) {
+app.controller('viewAdminPanelCtrl', function($routeParams, $location, $rootScope, UserService, AuctionService) {
   var vm = this;
   vm.allowAccess = false;
-
+  vm.currentTab = 'finishedTab';
+  vm.allSoldAuctions = {}
   if(!$rootScope.userIsAdmin){
       vm.allowAccess = false;
   }
   if(!$rootScope.currentUser.hasOwnProperty('id')){
-    $location.path('/viewAdminLogin/');
+    //$location.path('/viewAdminLogin/');
+  }
+
+  vm.changeTab = function(newActiveTab){
+    $('#adminTabs li').removeClass('active');
+    $('#' + newActiveTab).addClass('active');
+    vm.currentTab = newActiveTab;
+  }
+
+  initAuctions();
+
+
+  function initAuctions() {
+    var getAllAuctionData = AuctionService.getAll();
+    getAllAuctionData.then(function(response) {
+      var tempData = {};
+      for (var index in response) {
+        if (response[index].sold === true) {
+          tempData[index] = response[index];
+        }
+      }
+      vm.allSoldAuctions = tempData;
+      console.log(vm.allSoldAuctions);
+    })
+    getAllAuctionData.then(function(response) {
+      var getAllCategoriesData = AuctionService.getAllCategories();
+      getAllCategoriesData.then(function(response) {
+        vm.allCategories = response;
+      })
+    })
   }
 })

@@ -12,9 +12,11 @@
                     <hr>
                     <div class="buttonContainer">
                         <h3>Högsta bud: {{AD.auctionBids.length > 0 ? AD.highestBid.bidPrice : "0" | currency}}</h3>
-                        <button type="button" class="btn btn-primary auctionButton" ng-click="AD.buyAction()">Köp direkt</button>
+                        <span style="color:red;" ng-show="AD.auctionDetails.sold">Den här auktionen är redan såld!</span>
+                        <br ng-show="AD.auctionDetails.sold">
+                        <button type="button" class="btn btn-primary auctionButton" ng-disabled="AD.auctionExpired || AD.auctionDetails.sold || !currentUser.hasOwnProperty('id')" data-toggle="modal" data-target="#buyConfirmModal">Köp direkt</button>
                         <a href="#!/viewAuctionBid/{{AD.auctionId}}">
-                            <button type="button" class="btn btn-default auctionButton">Lägg bud</button>
+                            <button type="button" class="btn btn-default auctionButton" ng-disabled="AD.auctionExpired || AD.auctionDetails.sold">Lägg bud</button>
 
                         </a> <span> - </span>
                         <button type="button" class="btn btn-default auctionButton" data-toggle="modal" data-target="#bidHistoryModal">Visa budhistorik</button>
@@ -24,6 +26,26 @@
                     <h3>{{AD.auctionDetails.startTime | date:'yyyy-MM-dd HH:mm'}}</h3>
                     <h4>Auktionen slutar:</h4>
                     <h3>{{AD.auctionDetails.endTime | date:'yyyy-MM-dd HH:mm'}}</h3>
+                    <span style="color:red;" ng-show="AD.auctionExpired && !AD.auctionDetails.sold">Den här auktionen har gått ut!</span>
+        </div>
+    </div>
+    <div id="buyConfirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Bekräfta köp</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <b4>Är du säker på att du vill köpa denna auktion?</b4>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="AD.buyAction()">Ja</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Nej</button>
+                </div>
+            </div>
         </div>
     </div>
     <div id="bidHistoryModal" class="modal fade" role="dialog">

@@ -35,7 +35,6 @@ app.factory('AuctionService', function($http) {
         },
 
         newBid: function(bidData) {
-            console.log(bidData);
             var url = "http://nackademiska.azurewebsites.net/api/bid";
             return $http.post(url, JSON.stringify(bidData))
             .then(function(response){
@@ -43,7 +42,8 @@ app.factory('AuctionService', function($http) {
             });
         },
 
-        buyOutAuction: function(buyData) {
+        buyAction: function(buyData) {
+            console.log()
             var url = "http://nackademiska.azurewebsites.net/api/auction/buynow";
             return $http.post(url, JSON.stringify(buyData))
             .then(function(response){

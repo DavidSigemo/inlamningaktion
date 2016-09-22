@@ -49,6 +49,7 @@ app.factory('UserService', function($http, $rootScope, $location) {
             return $http.get(url)
                 .then(function(response) {
                     if (response.status === 200) {
+                        $rootScope.currentUserId = response.data.id;
                         $rootScope.currentUser = response.data;
                         return response.data;
                     }

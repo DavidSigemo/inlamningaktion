@@ -22,6 +22,7 @@
     vm.supplierDetails = {};
     vm.highestBid = {};
     vm.bidAmountInput;
+    vm.auctionExpired = false;
 
     if ($location.path().split('/')[1] === 'viewAuctionBid' && !$rootScope.currentUser.hasOwnProperty('id')) {
       $location.path('/viewLogin/');
@@ -32,6 +33,9 @@
       var GetAuctionDetailsData = AuctionService.getById(vm.auctionId);
       GetAuctionDetailsData.then(function(response) {
         vm.auctionDetails = response;
+        if (moment(response.endTime) < Date.now()){
+          vm.auctionExpired = true;
+        }
       })
       GetAuctionDetailsData.then(function(response) {
         var supplierId = response.supplierId;
@@ -56,10 +60,7 @@
           });
 
           vm.highestBid = vm.highestBid[0];
-          console.log(vm.highestBid.bidPrice);
-          // vm.highestBid = Math.max.apply(Math, response.map(function(o) {
-          //     return o.bidPrice;
-          // }));
+
           vm.bidAmountInput = vm.highestBid.bidPrice + 100;
 
         })
@@ -73,9 +74,6 @@
         customerId: $rootScope.currentUserId,
         bidPrice: vm.bidAmountInput
       }
-      console.log(typeof(vm.auctionId));
-      console.log(typeof($rootScope.currentUserId));
-      console.log(typeof(vm.bidAmountInput));
 
       var SendAuctionBid = AuctionService.newBid(newBidData);
       SendAuctionBid.then(function(response) {
@@ -95,12 +93,22 @@
             });
 
             vm.highestBid = vm.highestBid[0];
-            // vm.highestBid = Math.max.apply(Math, response.map(function(o) {
-            //   return o.bidPrice;
-            // }));
 
             vm.bidAmountInput = vm.highestBid.bidPrice + 100;
           })
+        }
+      })
+    }
+
+    vm.buyAction = function(){
+      var newBuyData = {
+        auctionId: vm.auctionId,
+        customerId: $rootScope.currentUserId
+      }
+      var SendAuctionBuy = AuctionService.buyAction(newBuyData);
+      SendAuctionBuy.then(function(response){
+        if (response.status !== 400) {
+          vm.auctionDetails.sold = true;
         }
       })
     }

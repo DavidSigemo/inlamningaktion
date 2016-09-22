@@ -1,12 +1,30 @@
 <link rel="stylesheet" type="text/css" href="viewAdminPanel/viewAdminPanel.css">
 <div ng-app="myApp.viewAdminPanel" ng-controller="viewAdminPanelCtrl as AP" class="pageContent">
-    <div ng-switch="userIsAdmin">
+    <div ng-switch="!userIsAdmin">
         <div ng-switch-when="true" id="adminPanel">
-            <div class="col-md-4"></div>
-            <div id="supplierContent" class="col-md-4">
-               <h1>Adminpanel</h1>
+            <div id="supplierContent" class="col-md-8">
+                <ul id="adminTabs" class="nav nav-tabs">
+                    <li id="finishedTab" class="active"><a href="" ng-click="AP.changeTab('finishedTab')">Avslutade auktioner</a></li>
+                    <li id="salesTab"><a href="" ng-click="AP.changeTab('salesTab')">Försäljningsrapport</a></li>
+                </ul>
+                <br>
+                <div ng-show="AP.currentTab === 'finishedTab'">
+                    <table>
+                        <thead>
+                            <th>Auktion</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="soldAuction in AP.allSoldAuctions">
+                                <td>{{soldAuction.id}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-show="AP.currentTab === 'salesTab'">
+                    <h1>sales</h1>
+                </div>
             </div>
-    
+
         </div>
         <div ng-switch-when="false">
             <h1>You need to be an admin to view this page!</h1>
