@@ -2,7 +2,7 @@
 Inlämningsuppgift för FrontEnd2. Auktionssida med API och angular 1.
 
 
-TODO:
+# TODO:
 
-# Adminpanel
-# Wrong login error
+Adminpanel
+Wrong login error
