@@ -43,7 +43,6 @@ app.factory('AuctionService', function($http) {
         },
 
         buyAction: function(buyData) {
-            console.log()
             var url = "http://nackademiska.azurewebsites.net/api/auction/buynow";
             return $http.post(url, JSON.stringify(buyData))
             .then(function(response){
