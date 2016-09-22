@@ -3,13 +3,15 @@
     <div class="bidFormContainer">
         <h3>Lägg ett nytt bud</h3>
         <form name="bidForm" ng-submit="AD.submitBid()">
-            <div class="col-md-4 bidInputContainer" ng-class="{ 'has-error':(bidForm.bidAmountInput.$error.required || (AD.bidAmountInput < AD.highestBid)) && bidForm.bidAmountInput.$touched}">
+            <div class="col-md-4 bidInputContainer" ng-class="{ 'has-warning':AD.highestBid.customerId === currentUserId, 'has-error':((bidForm.bidAmountInput.$error.required || (AD.bidAmountInput < AD.highestBid.bidPrice)) && bidForm.bidAmountInput.$touched)}">
                 <label for="bidAmountInput" id="bidAmountInputLabel" class="control-label ">Ditt bud</label>
-                <input type="number" ng-value="AD.highestBid > 0  ? AD.highestBid + 100 : 100"  class="form-control " id="bidAmountInput" name="bidAmountInput " required ng-model="AD.bidAmountInput">
-                <button type="submit" id="submitBidButton" class="btn btn-primary" ng-disabled="(bidForm.bidAmountInput.$error.required && bidForm.bidAmountInput.$touched) || (AD.bidAmountInput < AD.highestBid)">Lägg bud</button>
+                <input type="number" ng-value="AD.highestBid.bidPrice > 0  ? AD.highestBid.bidPrice + 100 : 100"  class="form-control " id="bidAmountInput" name="bidAmountInput " required ng-model="AD.bidAmountInput">
+                <button type="submit" id="submitBidButton" class="btn btn-primary" ng-disabled="(bidForm.bidAmountInput.$error.required && bidForm.bidAmountInput.$touched) || (AD.bidAmountInput < AD.highestBid.bidPrice) || (AD.highestBid.customerId === currentUserId)">Lägg bud</button>
                 <br>
                 <span class="control-label " ng-show="bidForm.bidAmountInput.$error.required && bidForm.bidAmountInput.$touched">Du måste ange ett värde!</span>
-                <span class="control-label " ng-show="(AD.bidAmountInput < AD.highestBid) && bidForm.bidAmountInput.$touched">Ditt bud måste vara högre än det tidigare högsta budet!</span>
+                <span class="control-label " ng-show="(AD.bidAmountInput < AD.highestBid.bidPrice) && bidForm.bidAmountInput.$touched">Ditt bud måste vara högre än det tidigare högsta budet!</span>
+                <br ng-show="(AD.highestBid.customerId === currentUserId)">
+                <span class="control-label " ng-show="(AD.highestBid.customerId === currentUserId)">Du har redan det högsta budet för den här auktionen!</span>
             </div>
         </form>
     </div>

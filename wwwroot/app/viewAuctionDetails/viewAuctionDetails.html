@@ -11,7 +11,7 @@
                 < 100) ? AD.auctionDetails.description : AD.auctionDetails.description.substring(0,99) + ".."}}</h4>
                     <hr>
                     <div class="buttonContainer">
-                        <h3>Högsta bud: {{AD.auctionBids.length > 0 ? AD.highestBid : "0" | currency}}</h3>
+                        <h3>Högsta bud: {{AD.auctionBids.length > 0 ? AD.highestBid.bidPrice : "0" | currency}}</h3>
                         <button type="button" class="btn btn-primary auctionButton" ng-click="AD.buyAction()">Köp direkt</button>
                         <a href="#!/viewAuctionBid/{{AD.auctionId}}">
                             <button type="button" class="btn btn-default auctionButton">Lägg bud</button>

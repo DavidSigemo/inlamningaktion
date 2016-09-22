@@ -20,7 +20,7 @@
     vm.auctionBids = {};
     vm.supplierId;
     vm.supplierDetails = {};
-    vm.highestBid;
+    vm.highestBid = {};
     vm.bidAmountInput;
 
     if ($location.path().split('/')[1] === 'viewAuctionBid' && !$rootScope.currentUser.hasOwnProperty('id')) {
@@ -45,11 +45,22 @@
         GetAuctionBidsData.then(function(response) {
           vm.auctionBids = response;
 
-          vm.highestBid = Math.max.apply(Math, response.map(function(o) {
-            return o.bidPrice;
-          }));
 
-          vm.bidAmountInput = vm.highestBid + 100;
+          var highestBidId = 0;
+          $.each(response, function(key, bid) {
+            if (bid.bidPrice > highestBidId) highestBidId = bid.id;
+          })
+
+          vm.highestBid = $.grep(response, function(e) {
+            return e.id === highestBidId;
+          });
+
+          vm.highestBid = vm.highestBid[0];
+          console.log(vm.highestBid.bidPrice);
+          // vm.highestBid = Math.max.apply(Math, response.map(function(o) {
+          //     return o.bidPrice;
+          // }));
+          vm.bidAmountInput = vm.highestBid.bidPrice + 100;
 
         })
       })
@@ -58,26 +69,37 @@
 
     vm.submitBid = function() {
       var newBidData = {
-        auctionId: parseInt(vm.auctionId),
-        customerId:  parseInt($rootScope.currentUserId),
-        bidPrice:  parseInt(vm.bidAmountInput)
+        auctionId: vm.auctionId,
+        customerId: $rootScope.currentUserId,
+        bidPrice: vm.bidAmountInput
       }
+      console.log(typeof(vm.auctionId));
+      console.log(typeof($rootScope.currentUserId));
+      console.log(typeof(vm.bidAmountInput));
 
       var SendAuctionBid = AuctionService.newBid(newBidData);
       SendAuctionBid.then(function(response) {
         if (response.status !== 400) {
-          GetAuctionDetailsData.then(function(response) {
-            var GetAuctionBidsData = AuctionService.getBids(vm.auctionId);
-            GetAuctionBidsData.then(function(response) {
-              vm.auctionBids = response;
 
-              vm.highestBid = Math.max.apply(Math, response.map(function(o) {
-                return o.bidPrice;
-              }));
+          var GetAuctionBidsData = AuctionService.getBids(vm.auctionId);
+          GetAuctionBidsData.then(function(response) {
+            vm.auctionBids = response;
 
-              vm.bidAmountInput = vm.highestBid + 100;
-
+            var highestBidId = 0;
+            $.each(response, function(key, bid) {
+              if (bid.bidPrice > highestBidId) highestBidId = bid.id;
             })
+
+            vm.highestBid = $.grep(response, function(e) {
+              return e.id === highestBidId;
+            });
+
+            vm.highestBid = vm.highestBid[0];
+            // vm.highestBid = Math.max.apply(Math, response.map(function(o) {
+            //   return o.bidPrice;
+            // }));
+
+            vm.bidAmountInput = vm.highestBid.bidPrice + 100;
           })
         }
       })
