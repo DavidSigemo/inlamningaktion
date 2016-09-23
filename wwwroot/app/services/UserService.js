@@ -1,4 +1,4 @@
-app.factory('UserService', function($http, $rootScope, $location) {
+app.factory('UserService', function($http, $rootScope, $location, $cookies) {
     vm = this;
     $rootScope.currentUserId = 0;
     $rootScope.currentUser = {}
@@ -10,7 +10,31 @@ app.factory('UserService', function($http, $rootScope, $location) {
         $rootScope.currentUser = {}
         $rootScope.navbarSwitch = "0";
         $rootScope.userIsAdmin = false;
+        $cookies.remove('currentUserId');
+        $cookies.remove('userIsAdmin');
         $location.path('/viewAuctions');
+    }
+
+    if (typeof($cookies.getObject('currentUserId')) == 'number')  {
+        console.log("getting cookies");
+        $rootScope.currentUserId = $cookies.getObject('currentUserId');
+        console.log($cookies.getAll());
+
+        $rootScope.userIsAdmin = $cookies.getObject('userIsAdmin');
+        if ($rootScope.userIsAdmin == "false") {
+            $rootScope.navbarSwitch = "1";
+        } else {
+            $rootScope.navbarSwitch = "2";
+        }
+
+        var url = "http://nackademiska.azurewebsites.net/api/customer/".concat($rootScope.currentUserId);
+        $http.get(url).then(function(response) {
+            if (response.status === 200) {
+                $rootScope.currentUserId = response.data.id;
+                $rootScope.currentUser = response.data;
+                return response.data;
+            }
+        });
     }
 
 
@@ -24,8 +48,12 @@ app.factory('UserService', function($http, $rootScope, $location) {
                         $rootScope.currentUserId = response.data.id;
                         $rootScope.navbarSwitch = "1";
                         $rootScope.userIsAdmin = false;
+                        $cookies.put('userIsAdmin', "false");
+                        $cookies.putObject('currentUserId', $rootScope.currentUserId);
                         return response.data;
                     }
+                }, function(response) {
+                    return response;
                 });
         },
 
@@ -34,13 +62,16 @@ app.factory('UserService', function($http, $rootScope, $location) {
 
             return $http.post(url, JSON.stringify(userData))
                 .then(function(response) {
-                    console.log(response);
                     if (response.status === 200) {
                         $rootScope.currentUserId = response.data.id;
                         $rootScope.navbarSwitch = "2"
                         $rootScope.userIsAdmin = true;
+                        $cookies.put('userIsAdmin', "true");
+                        $cookies.putObject('currentUserId', $rootScope.currentUserId);
                         return response.data;
                     }
+                }, function(response) {
+                    return response;
                 });
         },
 

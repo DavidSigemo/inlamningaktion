@@ -1,7 +1,20 @@
-#supplierTile{
+#adminPanel {
     text-align: center;
 }
 
-#supplierContent{
+#adminContent {
     text-align: left;
+    margin-bottom: 10px;
+    min-width: 500px;
+}
+
+#totalsDiv, #salesFiltersDiv {
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    background-color: #f3f3f3;
+}
+
+#salesFiltersDiv {
+    height: 116px;
 }

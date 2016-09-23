@@ -4,16 +4,16 @@ var app = angular.module('myApp.viewAccount', ['ngRoute'])
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/viewSignup/', {
-            templateUrl: 'viewAccount/viewSignup.html'//,
-           //controller: 'viewAccountCtrl'
+            templateUrl: 'viewAccount/viewSignup.html' //,
+                //controller: 'viewAccountCtrl'
         })
         .when('/viewLogin/', {
-            templateUrl: 'viewAccount/viewLogin.html'//,
-            //controller: 'viewAccountCtrl'
+            templateUrl: 'viewAccount/viewLogin.html' //,
+                //controller: 'viewAccountCtrl'
         })
         .when('/viewAdminLogin/', {
-            templateUrl: 'viewAccount/viewAdminLogin.html'//,
-            //controller: 'viewAccountCtrl'
+            templateUrl: 'viewAccount/viewAdminLogin.html' //,
+                //controller: 'viewAccountCtrl'
         });
 }]);
 
@@ -21,6 +21,7 @@ app.controller('viewAccountCtrl', function($rootScope, $scope, UserService, $loc
     var vm = this;
     vm.newUser = {}
     vm.loginUser = {}
+    vm.badLogin = false;
     vm.loginAdmin = {}
     vm.formMaster = {
         firstNameInput: "",
@@ -40,8 +41,15 @@ app.controller('viewAccountCtrl', function($rootScope, $scope, UserService, $loc
 
             var userData = UserService.getUserById(response.id);
             userData.then(function(userResponse) {
-                vm.currentUserData = userResponse;
-                window.history.back();
+                if (typeof(userResponse) === 'object') {
+                    vm.currentUserData = userResponse.data;
+                    window.history.back();
+                } else if (typeof(userResponse) === 'undefined') {
+                    vm.badLogin = true;
+                } else {
+                    window.alert("An unknown error occured!");
+                }
+
             });
 
         });
@@ -55,8 +63,14 @@ app.controller('viewAccountCtrl', function($rootScope, $scope, UserService, $loc
 
             var userData = UserService.getUserById(response.id);
             userData.then(function(userResponse) {
-                vm.currentUserData = userResponse;
-                window.history.back();
+                if (typeof(userResponse) === 'object') {
+                    vm.currentUserData = userResponse;
+                    window.history.back();
+                } else if (typeof(userResponse) === 'undefined') {
+                    vm.badLogin = true;
+                } else {
+                    window.alert("An unknown error occured!");
+                }
             });
 
         });
@@ -71,7 +85,7 @@ app.controller('viewAccountCtrl', function($rootScope, $scope, UserService, $loc
         tryLogin(userData);
     }
 
-    vm.loginAdmin = function(){
+    vm.loginAdmin = function() {
         var userData = {
             email: vm.loginAdmin.emailInput,
             password: vm.loginAdmin.passWordInput

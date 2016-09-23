@@ -1,41 +1,96 @@
 <link rel="stylesheet" type="text/css" href="viewAdminPanel/viewAdminPanel.css">
 <div ng-app="myApp.viewAdminPanel" ng-controller="viewAdminPanelCtrl as AP" class="pageContent">
-    <div ng-switch="!userIsAdmin">
+    <div ng-switch="userIsAdmin">
         <div ng-switch-when="true" id="adminPanel">
-            <div id="supplierContent" class="col-md-12">
+            <div id="adminContent" class="col-md-12">
                 <ul id="adminTabs" class="nav nav-tabs">
                     <li id="finishedTab" class="active"><a href="" ng-click="AP.changeTab('finishedTab')">Avslutade auktioner</a></li>
                     <li id="salesTab"><a href="" ng-click="AP.changeTab('salesTab')">Försäljningsrapport</a></li>
                 </ul>
                 <br>
-                <div ng-show="AP.currentTab === 'finishedTab'">
-                    <table class="table table-striped table-bordered table-responsive">
-                        <thead>
-                            <th>Auktion</th>
-                            <th>Bild</th>
-                            <th>Namn</th>
-                            <th>Slutpris</th>
-                            <th>Erhållen provision</th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="auction in AP.auctionList">
-                                <td>{{auction.id}}</td>
-                                <td><img style="height: 100px; width: 100px;" ng-src="{{auction.imageUrl}}" /></td>
-                                <td>{{auction.name}}</td>
-                                <td>{{auction.sellingPrice | currency}}</td>
-                                <td>{{auction.moneyEarned | currency}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div ng-show="AP.currentTab === 'salesTab'">
-                    <h1>sales</h1>
+                <div class="tabContent">
+                    <div class="finishedTab" ng-show="AP.currentTab === 'finishedTab'">
+                        <table id="finishedTableclass" class="table table-striped table-bordered table-responsive">
+                            <thead>
+                                <th>Auktion</th>
+                                <th>Bild</th>
+                                <th>Namn</th>
+                                <th>Slutpris</th>
+                                <th>Erhållen provision</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="auction in AP.auctionList | orderBy:endTime">
+                                    <td>{{auction.id}}</td>
+                                    <td><img style="height: 100px; width: 100px;" ng-src="{{auction.imageUrl}}" /></td>
+                                    <td>{{auction.name}}</td>
+                                    <td>{{auction.sellingPrice | currency}}</td>
+                                    <td>{{auction.moneyEarned | currency}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="salesTab" ng-show="AP.currentTab === 'salesTab'">
+                        <div class="salesDiv">
+                            <div id="totalsDiv" class="col-md-3">
+                                <h4>Försäljningssiffror för: {{AP.selectedMonth}}</h4>
+                                <h5>Antal auktioner sålda: {{AP.salesReportSold}}</h5>
+                                <h5>Totalt värde av sålda auktioner: {{AP.salesReportTotalAmount | currency}}</h5>
+                                <h5>Totalt värde efter kommission: {{AP.salesReportAfterCommission | currency}}</h5>
+                            </div>
+                            <div id="salesFiltersDiv">
+                                <div class="col-md-2">
+                                    <label for="auktionFreeSearchInput">
+                                        Sök efter en auktion
+                                        <input type="text" class="form-control" ng-model="AP.auktionFreeSearchInput" name="auktionFreeSearchInput" value="" ng-change="AP.salesFilterChange()" ng-model-options="{ debounce: 200 }">
+                                        </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="auktionMonthInput">
+                                        Välj månad
+                                        <select class="form-control" ng-model="AP.auktionMonthInput" ng-change="AP.salesFilterChange()" id="selectedMonth">
+                                            <option value="">Alla</option>
+                                            <option value="0">Januari</option>
+                                            <option value="1">Februari</option>
+                                            <option value="2">Mars</option>
+                                            <option value="3">April</option>
+                                            <option value="4">Maj</option>
+                                            <option value="5">Juni</option>
+                                            <option value="6">Juli</option>
+                                            <option value="7">Augusti</option>
+                                            <option value="8">September</option>
+                                            <option value="9">Oktober</option>
+                                            <option value="10">November</option>
+                                            <option value="11">December</option>
+                                        </select>
+                                        </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="salesTabContent">
+                            <table id="finishedTableclass" class="table table-striped table-bordered table-responsive">
+                                <thead>
+                                    <th>Auktion</th>
+                                    <th>Namn</th>
+                                    <th>Slutpris</th>
+                                    <th>Såldes</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="auction in AP.auctionList | filter:AP.auktionFreeSearchInput | monthFilter:AP.auktionMonthInput  | orderBy:endTime">
+                                        <td>{{auction.id}}</td>
+                                        <td>{{auction.name}}</td>
+                                        <td>{{auction.sellingPrice | currency}}</td>
+                                        <td>{{auction.endTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
         <div ng-switch-when="false">
-            <h1>You need to be an admin to view this page!</h1>
+            <center><h1>You need to be an admin to view this page!</h1></center>
         </div>
     </div>
 </div>

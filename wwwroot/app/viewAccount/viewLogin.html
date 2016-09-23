@@ -17,7 +17,9 @@
                 <span class="control-label" ng-show="loginForm.passwordInput.$error.required && loginForm.passwordInput.$touched">Fält saknas!</span>
             </div>
             <div class="requiredMargin pull-right">
-                <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$untouched || loginForm.$invalid">Logga in</button>
+                <span ng-show="SC.badLogin" style="color:red;">Felaktig login! Var god försök igen</span>
+                <br ng-show="SC.badLogin">
+                <button type="submit" class="btn btn-primary pull-right" ng-disabled="loginForm.$untouched || loginForm.$invalid">Logga in</button>
             </div>
         </div>
     </form>

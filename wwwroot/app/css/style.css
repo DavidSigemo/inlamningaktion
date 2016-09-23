@@ -9,10 +9,9 @@ body {
   -o-background-size: cover;
   background-size: cover;*/
   background-color: #E5E5E5;
-  height: 100%;
-  overflow: hidden;
   padding-top: 65px;
   padding-bottom: 65px;
+
 }
 
 
@@ -20,8 +19,8 @@ body {
 .page {
     /*padding: 10px;
     margin-top: 50px;*/
-    height: 90%;
-    overflow: auto;
+    height: 80%;
+    margin-bottom: 10px;
 }
 
 .divider{
@@ -37,4 +36,5 @@ body {
       padding: 5px;
       border: 1px solid lightgray;
       border-radius: 3px;
+      width: 100%;
 }
